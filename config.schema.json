@@ -18,8 +18,7 @@
         "title": "Webhook port",
         "type": "integer",
         "default": 3210,
-        "minimum": 1,
-        "maximum": 65535
+        "placeholder": 3210
       },
       "bindAddress": {
         "title": "Bind address",
@@ -38,8 +37,7 @@
         "title": "Reset after",
         "type": "integer",
         "default": 10,
-        "minimum": 1,
-        "maximum": 3600,
+        "placeholder": 10,
         "description": "Seconds before a triggered motion sensor returns to inactive."
       },
       "sensors": {
@@ -89,4 +87,3 @@
     }
   ]
 }
-
