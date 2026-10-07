@@ -69,3 +69,19 @@ test('rejects missing credentials and unknown sensors', async () => {
     assert.equal(unknown.status, 404);
   });
 });
+
+test('contains trigger failures without terminating the server', async () => {
+  await withServer(() => {
+    throw new Error('simulated HomeKit failure');
+  }, async baseUrl => {
+    const response = await fetch(`${baseUrl}/webhook/known`, {
+      method: 'POST',
+      headers: { 'x-changedetection-token': TOKEN },
+    });
+    assert.equal(response.status, 500);
+    assert.deepEqual(await response.json(), { error: 'trigger_failed' });
+
+    const health = await fetch(`${baseUrl}/health`);
+    assert.equal(health.status, 200);
+  });
+});

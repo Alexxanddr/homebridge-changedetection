@@ -21,7 +21,13 @@ export class WebhookServer {
     }
 
     const server = createServer((request, response) => {
-      void this.handle(request, response);
+      void this.handle(request, response).catch(() => {
+        if (!response.headersSent) {
+          this.send(response, 500, { error: 'internal_error' });
+        } else {
+          response.destroy();
+        }
+      });
     });
     this.server = server;
 
@@ -90,7 +96,15 @@ export class WebhookServer {
     }
 
     const id = decodeURIComponent(match[1]);
-    if (!this.options.onTrigger(id)) {
+    let triggered: boolean;
+    try {
+      triggered = this.options.onTrigger(id);
+    } catch {
+      this.send(response, 500, { error: 'trigger_failed' });
+      return;
+    }
+
+    if (!triggered) {
       this.send(response, 404, { error: 'unknown_sensor' });
       return;
     }

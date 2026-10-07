@@ -79,7 +79,15 @@ export class ChangeDetectionPlatform implements DynamicPlatformPlugin {
 
       this.sensors.set(
         sensorConfig.id,
-        new ChangeSensor(accessory, motionService, this.log, resetAfterSeconds),
+        new ChangeSensor(
+          accessory,
+          active => motionService.updateCharacteristic(
+            this.api.hap.Characteristic.MotionDetected,
+            active,
+          ),
+          this.log,
+          resetAfterSeconds,
+        ),
       );
     }
 
@@ -97,8 +105,7 @@ export class ChangeDetectionPlatform implements DynamicPlatformPlugin {
       token,
       onTrigger: id => {
         const sensor = this.sensors.get(id);
-        sensor?.trigger();
-        return Boolean(sensor);
+        return sensor?.trigger() ?? false;
       },
     });
 

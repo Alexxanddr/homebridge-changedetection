@@ -73,10 +73,11 @@
     "name",
     {
       "key": "sensors",
-      "type": "array",
-      "name": "Watch sensors",
+      "type": "tabarray",
+      "title": "{{ value.name || value.id || 'New watch sensor' }}",
+      "add": "Add watch sensor",
       "orderable": true,
-      "buttonText": "Add sensor"
+      "items": ["sensors[].id", "sensors[].name"]
     },
     {
       "type": "fieldset",
