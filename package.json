@@ -1,7 +1,7 @@
 {
   "name": "homebridge-changedetection",
   "displayName": "ChangeDetection",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Expose changedetection.io webhook events as HomeKit motion sensors.",
   "type": "module",
   "main": "dist/index.js",
