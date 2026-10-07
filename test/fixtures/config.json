@@ -1,0 +1,24 @@
+{
+  "bridge": {
+    "name": "ChangeDetection Test",
+    "username": "0E:00:00:00:00:01",
+    "port": 51891,
+    "pin": "031-45-154"
+  },
+  "platforms": [
+    {
+      "platform": "ChangeDetection",
+      "name": "ChangeDetection",
+      "bindAddress": "127.0.0.1",
+      "port": 33210,
+      "token": "development-token-only",
+      "resetAfterSeconds": 1,
+      "sensors": [
+        {
+          "id": "test-watch",
+          "name": "Test watch changed"
+        }
+      ]
+    }
+  ]
+}

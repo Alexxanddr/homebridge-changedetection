@@ -1,0 +1,54 @@
+{
+  "name": "homebridge-changedetection",
+  "displayName": "ChangeDetection",
+  "version": "0.1.0",
+  "description": "Expose changedetection.io webhook events as HomeKit motion sensors.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "config.schema.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": "^22.10.0 || ^24.0.0",
+    "homebridge": "^1.8.0 || ^2.0.0"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "check": "npm run lint && npm run build && npm test",
+    "lint": "eslint . --max-warnings=0",
+    "prepublishOnly": "npm run check",
+    "test": "node --test test/*.test.mjs"
+  },
+  "keywords": [
+    "homebridge-plugin",
+    "supports-hap",
+    "changedetection.io",
+    "changedetection",
+    "homekit",
+    "webhook"
+  ],
+  "author": "Alexxanddr",
+  "license": "MIT",
+  "homepage": "https://github.com/Alexxanddr/homebridge-changedetection#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexxanddr/homebridge-changedetection.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Alexxanddr/homebridge-changedetection/issues"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.0",
+    "@types/node": "^24.0.0",
+    "eslint": "^10.0.0",
+    "homebridge": "^2.0.0",
+    "rimraf": "^6.0.0",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.0.0"
+  }
+}
+

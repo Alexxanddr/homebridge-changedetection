@@ -1,0 +1,92 @@
+{
+  "pluginAlias": "ChangeDetection",
+  "pluginType": "platform",
+  "singular": true,
+  "strictValidation": true,
+  "schema": {
+    "type": "object",
+    "required": ["name", "token", "sensors"],
+    "additionalProperties": false,
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "ChangeDetection",
+        "minLength": 1
+      },
+      "port": {
+        "title": "Webhook port",
+        "type": "integer",
+        "default": 3210,
+        "minimum": 1,
+        "maximum": 65535
+      },
+      "bindAddress": {
+        "title": "Bind address",
+        "type": "string",
+        "default": "0.0.0.0",
+        "description": "Use 0.0.0.0 when changedetection.io runs on another host or in another container."
+      },
+      "token": {
+        "title": "Webhook token",
+        "type": "string",
+        "minLength": 16,
+        "format": "password",
+        "description": "A random shared secret sent in the X-ChangeDetection-Token header."
+      },
+      "resetAfterSeconds": {
+        "title": "Reset after",
+        "type": "integer",
+        "default": 10,
+        "minimum": 1,
+        "maximum": 3600,
+        "description": "Seconds before a triggered motion sensor returns to inactive."
+      },
+      "sensors": {
+        "title": "Watch sensors",
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "object",
+          "required": ["id", "name"],
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "title": "Webhook ID",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9._~-]+$",
+              "description": "A stable ID used in /webhook/<id>, for example product-stock."
+            },
+            "name": {
+              "title": "HomeKit name",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            }
+          }
+        }
+      }
+    }
+  },
+  "layout": [
+    "name",
+    {
+      "key": "sensors",
+      "type": "array",
+      "name": "Watch sensors",
+      "orderable": true,
+      "buttonText": "Add sensor"
+    },
+    {
+      "type": "fieldset",
+      "title": "Webhook server",
+      "expandable": true,
+      "expanded": false,
+      "items": ["port", "bindAddress", "token", "resetAfterSeconds"]
+    }
+  ]
+}
+
